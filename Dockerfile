@@ -18,6 +18,15 @@ ADD config/90-no-console.json /etc/bzt.d/
 
 COPY . /bzt/
 
+RUN groupadd -g 1000 platformtestuser && \
+ useradd -g 1000 -u 1000 platformtestuser
+
+RUN chown -R platformtestuser:platformtestuser .
+
+RUN chmod -R 755 .
+
+USER platformtestuser
+
 RUN bzt -o settings.default-executor=jmeter \
   -o execution.scenario.requests.0=http://localhost/ \
   -o execution.iterations=1 \
