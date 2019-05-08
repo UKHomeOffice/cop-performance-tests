@@ -21,24 +21,10 @@ COPY . /bzt/
 RUN groupadd -g 1000 platformtestuser && \
  useradd -g 1000 -u 1000 platformtestuser
 
-RUN chown -R platformtestuser:platformtestuser .
-
-RUN chmod -R 755 .
-
-USER platformtestuser
-
-RUN bzt -o settings.default-executor=jmeter \
-  -o execution.scenario.requests.0=http://localhost/ \
-  -o execution.iterations=1 \
-  -o execution.hold-for=1 \
-  -o execution.throughput=1
+RUN chown -R platformtestuser:platformtestuser /bzt
 
 VOLUME ["/bzt"]
 
-WORKDIR /bzt
+USER platformtestuser
 
-CMD bzt \
-  -l bzt.log \
-  -o settings.env.POSTGREST_DOMAIN=$POSTGREST_DOMAIN \
-  -o settings.env.POSTGREST_PATH=$POSTGREST_PATH \
-  /bzt/config/config.yml
+WORKDIR /bzt

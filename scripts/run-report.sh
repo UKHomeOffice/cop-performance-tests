@@ -2,7 +2,7 @@
 
 runTests()
 {
-    bzt /bzt/config/config.yml
+    bzt -l bzt.log /bzt/config/config.yml
 
     TEST_RUN_STATUS=$?
 
