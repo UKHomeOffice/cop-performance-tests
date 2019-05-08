@@ -10,11 +10,6 @@ scenarios:
   ref-data-auth:
     script: /bzt/scenarios/ref-data-auth.jmx
 modules:
-  jmeter:
-    path: ~/.bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter
-    version: ${jmeterVersion}
-    download-link: https://ci.apache.org/projects/jmeter/nightlies/${jmeterVersion}/apache-jmeter-${jmeterVersion}.zip
-    detect-plugins: false
     properties:
       jmeter.reportgenerator.apdex_satisfied_threshold: 1000
       jmeter.reportgenerator.report_title: JMeter Taurus Demo
