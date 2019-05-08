@@ -6,9 +6,9 @@ execution:
   - scenario: ref-data-auth
 scenarios:
   ref-data:
-    script: scenarios/ref-data.jmx
+    script: /bzt/scenarios/ref-data.jmx
   ref-data-auth:
-    script: scenarios/ref-data-auth.jmx
+    script: /bzt/scenarios/ref-data-auth.jmx
 modules:
   jmeter:
     path: ~/.bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter
