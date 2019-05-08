@@ -1,0 +1,31 @@
+settings:
+  env:
+    jmeterVersion: 5.1.1
+execution:
+  - scenario: ref-data
+  - scenario: ref-data-auth
+scenarios:
+  ref-data:
+    script: scenarios/ref-data.jmx
+  ref-data-auth:
+    script: scenarios/ref-data-auth.jmx
+modules:
+  jmeter:
+    path: ~/.bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter
+    version: ${jmeterVersion}
+    download-link: https://ci.apache.org/projects/jmeter/nightlies/${jmeterVersion}/apache-jmeter-${jmeterVersion}.zip
+    detect-plugins: false
+    properties:
+      jmeter.reportgenerator.apdex_satisfied_threshold: 1000
+      jmeter.reportgenerator.report_title: JMeter Taurus Demo
+      jmeter.reportgenerator.overall_granularity: 1000
+      jmeter.reportgenerator.exporter.html.series_filter: ^(ClickNext|HP|scenario)(-success|-failure)?$
+      output: ${TAURUS_ARTIFACTS_DIR}/output/
+services:
+  - module: shellexec
+    post-process:
+      - ~/.bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter -p ~/.bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter.properties -q ${TAURUS_ARTIFACTS_DIR}/jmeter-bzt.properties -g ${TAURUS_ARTIFACTS_DIR}/output/output.csv -o /tmp/report
+      - ./bzt/scripts/run-report.sh
+reporting:
+  - module: final-stats
+  - module: console
