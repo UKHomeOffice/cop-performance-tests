@@ -25,7 +25,6 @@ services:
   - module: shellexec
     post-process:
       - ~/.bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter -p ~/.bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter.properties -q ${TAURUS_ARTIFACTS_DIR}/jmeter-bzt.properties -g ${TAURUS_ARTIFACTS_DIR}/output/output.csv -o /tmp/report
-      - ./bzt/scripts/run-report.sh
 reporting:
   - module: final-stats
   - module: console
