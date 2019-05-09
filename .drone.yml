@@ -37,6 +37,7 @@ pipeline:
       - TEST_S3_KMS_KEY_ID
       - TEST_S3_ACCESS_KEY
       - TEST_S3_BUCKET_NAME
+      - TEST_S3_SECRET_KEY
       - TEST_AUTH_CLIENT_SECRET
       - TEST_PERF_TEST_SCHEDULE
       - TEST_DB_URL
@@ -64,6 +65,7 @@ pipeline:
       - export S3_KMS_KEY_ID=${TEST_S3_KMS_KEY_ID}
       - export S3_ACCESS_KEY=${TEST_S3_ACCESS_KEY}
       - export S3_BUCKET_NAME=${TEST_S3_BUCKET_NAME}
+      - export S3_SECRET_KEY=${TEST_S3_SECRET_KEY}
       - export AUTH_CLIENT_SECRET=${TEST_AUTH_CLIENT_SECRET}
       - export PERF_TEST_SCHEDULE=${TEST_PERF_TEST_SCHEDULE}
       - export DB_URL=${TEST_DB_URL}
