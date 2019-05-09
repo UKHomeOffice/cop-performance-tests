@@ -4,11 +4,14 @@ settings:
 execution:
   - scenario: ref-data
   - scenario: ref-data-auth
+  - scenario: database
 scenarios:
   ref-data:
     script: /bzt/scenarios/ref-data.jmx
   ref-data-auth:
     script: /bzt/scenarios/ref-data-auth.jmx
+  database:
+    script: /bzt/scenarios/database.jmx
 modules:
     properties:
       jmeter.reportgenerator.apdex_satisfied_threshold: 1000
@@ -19,7 +22,7 @@ modules:
 services:
   - module: shellexec
     post-process:
-      - ~/.bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter -p ~/.bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter.properties -q ${TAURUS_ARTIFACTS_DIR}/jmeter-bzt-1.properties -g ${TAURUS_ARTIFACTS_DIR}/output.csv -o ${TAURUS_ARTIFACTS_DIR}/report
+      - ~/.bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter -p ~/.bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter.properties -q ${TAURUS_ARTIFACTS_DIR}/jmeter-bzt-2.properties -g ${TAURUS_ARTIFACTS_DIR}/output-db.csv -o ${TAURUS_ARTIFACTS_DIR}/report
 reporting:
   - module: final-stats
   - module: console
