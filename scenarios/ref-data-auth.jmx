@@ -423,7 +423,7 @@ vars.put(&quot;BasicToken&quot;,tokenX); </stringProp>
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${__P(output,)}/output.csv</stringProp>
+          <stringProp name="filename">/bzt/bzt_artifacts/ouput.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>

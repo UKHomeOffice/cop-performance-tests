@@ -19,7 +19,7 @@ modules:
 services:
   - module: shellexec
     post-process:
-      - ~/.bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter -p ~/.bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter.properties -q ${TAURUS_ARTIFACTS_DIR}/jmeter-bzt.properties -g ${TAURUS_ARTIFACTS_DIR}/output/output.csv -o /bzt/report
+      - ~/.bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter -p ~/.bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter.properties -q ${TAURUS_ARTIFACTS_DIR}/jmeter-bzt-1.properties -g ${TAURUS_ARTIFACTS_DIR}/output.csv -o ${TAURUS_ARTIFACTS_DIR}/report
 reporting:
   - module: final-stats
   - module: console
