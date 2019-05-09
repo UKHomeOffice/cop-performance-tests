@@ -7,6 +7,8 @@ runTests()
     TEST_RUN_STATUS=$?
 
     echo "######## TEST RUN STATUS : $TEST_RUN_STATUS #######"
+
+    cat /bzt/bzt_artifacts/bzt.log
 }
 
 uploadReport()
