@@ -57,7 +57,32 @@ spec:
                   secretKeyRef:
                     name: {{ .NAME }}
                     key: slackWebHook
-            command:
+              - name: DB_URL
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ .NAME }}
+                    key: dbUrl
+              - name: DB_SCHEMA
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ .NAME }}
+                    key: dbSchema
+              - name: DB_USERNAME
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ .NAME }}
+                    key: dbUserName
+              - name: DB_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ .NAME }}
+                    key: dbPassword
+              - name: DB_ANON_ROLE
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ .NAME }}
+                    key: dbAnonRole
+           command:
               - /bin/sh
               - -c
               - >
