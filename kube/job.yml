@@ -1,11 +1,12 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{.NAME}}
+  name: {{ .NAME }}
+  namespace: {{ .NAMESPACE }}
 spec:
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
-  concurrencyPolicy: Allow
+  concurrencyPolicy: Forbid
   schedule: {{ .PERF_TEST_SCHEDULE }}
   jobTemplate:
    spec:
@@ -17,17 +18,35 @@ spec:
             image: quay.io/ukhomeofficedigital/cop-performance-tests:latest
             env:
               - name: AUTH_CLIENT_ID
-                value: {{ .AUTH_CLIENT_ID }}
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ .NAME }}
+                    key: authClientId
               - name: AUTH_CLIENT_SECRET
-                value: {{ .AUTH_CLIENT_SECRET }}
-              - name: S3_KMS_KEY_ID
-                value: {{ .S3_KMS_KEY_ID }}
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ .NAME }}
+                    key: authClientSecret
               - name: S3_ACCESS_KEY
-                value: {{ .S3_ACCESS_KEY }}
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ .NAME }}
+                    key: s3AccessKey
               - name: S3_SECRET_KEY
-                value: {{ .S3_SECRET_KEY }}
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ .NAME }}
+                    key: s3SecretKey
+              - name: S3_KMS_KEY_ID
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ .NAME }}
+                    key: s3KmsKeyId
               - name: S3_BUCKET_NAME
-                value: {{ .S3_BUCKET_NAME }}
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ .NAME }}
+                    key: s3BucketName
               - name: POSTGREST_DOMAIN
                 value: "{{ .POSTGREST_NAME }}.{{ .EXT_DOMAIN }}"
               - name: POSTGREST_PATH
@@ -37,8 +56,10 @@ spec:
               - name: KEYCLOCK_PATH
                 value: "/realms/{{ .KEYCLOAK_REALM }}/protocol/openid-connect/token"
               - name: SLACK_WEB_HOOK
-                value: {{ .SLACK_WEB_HOOK }}
-
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ .NAME }}
+                    key: slackWebHook
             command:
               - /bin/sh
               - -c

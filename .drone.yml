@@ -74,12 +74,8 @@ pipeline:
       - export DB_PASSWORD=${TEST_DB_PASSWORD}
       - export DB_ANON_ROLE=${TEST_DB_ANON_ROLE}
       - export IMAGE_TAG=${DRONE_BUILD_NUMBER}
-      - kd --insecure-skip-tls-verify -f kube/network-policy.yml
       - kd --insecure-skip-tls-verify -f kube/secret.yml
-      - kd --insecure-skip-tls-verify -f kube/service.yml
-      - kd --insecure-skip-tls-verify -f kube/deployment.yml --timeout=5m
-      - kd --insecure-skip-tls-verify -f kube/ingress.yml
-      - kd --insecure-skip-tls-verify -f kube/ingress.yml
+      - kd --insecure-skip-tls-verify -f kube/job.yml
     when:
       branch:
         - master
