@@ -18,10 +18,7 @@ spec:
             image: quay.io/ukhomeofficedigital/cop-performance-tests:latest
             env:
               - name: AUTH_CLIENT_ID
-                valueFrom:
-                  secretKeyRef:
-                    name: {{ .NAME }}
-                    key: authClientId
+                value: {{ .NAME }}
               - name: AUTH_CLIENT_SECRET
                 valueFrom:
                   secretKeyRef:
