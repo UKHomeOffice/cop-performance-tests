@@ -60,19 +60,18 @@ pipeline:
       - export INT_DOMAIN=$${TEST_INT_DOMAIN}
       - export EXT_DOMAIN=$${TEST_EXT_DOMAIN}
       - export PROTOCOL=$${TEST_PROTOCOL}
-      - export POSTGREST_NAME=${TEST_POSTGREST_NAME}
-      - export SLACK_WEB_HOOK=${TEST_SLACK_WEB_HOOK}
-      - export S3_KMS_KEY_ID=${TEST_S3_KMS_KEY_ID}
-      - export S3_ACCESS_KEY=${TEST_S3_ACCESS_KEY}
-      - export S3_BUCKET_NAME=${TEST_S3_BUCKET_NAME}
-      - export S3_SECRET_KEY=${TEST_S3_SECRET_KEY}
-      - export AUTH_CLIENT_SECRET=${TEST_AUTH_CLIENT_SECRET}
-      - export PERF_TEST_SCHEDULE=${TEST_PERF_TEST_SCHEDULE}
-      - export DB_URL=${TEST_DB_URL}
-      - export DB_SCHEMA=${TEST_DB_SCHEMA}
-      - export DB_USERNAME=${TEST_DB_USERNAME}
-      - export DB_PASSWORD=${TEST_DB_PASSWORD}
-      - export DB_ANON_ROLE=${TEST_DB_ANON_ROLE}
+      - export POSTGREST_NAME=$${TEST_SLACK_WEB_HOOK}
+      - export S3_KMS_KEY_ID=$${TEST_S3_KMS_KEY_ID}
+      - export S3_ACCESS_KEY=$${TEST_S3_ACCESS_KEY}
+      - export S3_BUCKET_NAME=$${TEST_S3_BUCKET_NAME}
+      - export S3_SECRET_KEY=$${TEST_S3_SECRET_KEY}
+      - export AUTH_CLIENT_SECRET=$${TEST_AUTH_CLIENT_SECRET}
+      - export PERF_TEST_SCHEDULE=$${TEST_PERF_TEST_SCHEDULE}
+      - export DB_URL=$${TEST_DB_URL}
+      - export DB_SCHEMA=$${TEST_DB_SCHEMA}
+      - export DB_USERNAME=$${TEST_DB_USERNAME}
+      - export DB_PASSWORD=$${TEST_DB_PASSWORD}
+      - export DB_ANON_ROLE=$${TEST_DB_ANON_ROLE}
       - export IMAGE_TAG=${DRONE_BUILD_NUMBER}
       - kd --insecure-skip-tls-verify -f kube/secret.yml
       - kd --insecure-skip-tls-verify -f kube/job.yml
