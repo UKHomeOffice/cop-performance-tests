@@ -2,7 +2,7 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: {{ .NAME }}
-  namespace: {{ .NAMESPACE }}
+  namespace: {{ .KUBE_NAMESPACE }}
 spec:
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
