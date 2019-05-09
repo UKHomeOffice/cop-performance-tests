@@ -60,6 +60,7 @@ pipeline:
       - export INT_DOMAIN=$${TEST_INT_DOMAIN}
       - export EXT_DOMAIN=$${TEST_EXT_DOMAIN}
       - export PROTOCOL=$${TEST_PROTOCOL}
+      - export POSTGREST_NAME=$${TEST_POSTGREST_NAME}
       - export SLACK_WEB_HOOK=$${TEST_SLACK_WEB_HOOK}
       - export S3_KMS_KEY_ID=$${TEST_S3_KMS_KEY_ID}
       - export S3_ACCESS_KEY=$${TEST_S3_ACCESS_KEY}
