@@ -39,6 +39,11 @@ pipeline:
       - S3_BUCKET_NAME
       - TEST_AUTH_CLIENT_SECRET
       - TEST_AUTH_CLIENT_ID
+      - TEST_PERF_TEST_SCHEDULE
+      - TEST_PGRST_DB_URL
+      - TEST_PGRST_DB_SCHEMA
+      - TEST_PGRST_DB_USERNAME
+      - TEST_PGRST_DB_PASSWORD
     commands:
       - export NAME=$${TEST_NAME}
       - export KUBE_NAMESPACE=$${TEST_KUBE_NAMESPACE}
@@ -61,11 +66,17 @@ pipeline:
       - export S3_BUCKET_NAME=${S3_BUCKET_NAME}
       - export AUTH_CLIENT_SECRET=${TEST_AUTH_CLIENT_SECRET}
       - export AUTH_CLIENT_ID=${TEST_AUTH_CLIENT_ID}
+      - export PERF_TEST_SCHEDULE=${TEST_PERF_TEST_SCHEDULE}
+      - export PGRST_DB_URL=${TEST_PGRST_DB_URL}
+      - export PGRST_DB_SCHEMA=${TEST_PGRST_DB_SCHEMA}
+      - export PGRST_DB_USERNAME=${TEST_PGRST_DB_USERNAME}
+      - export PGRST_DB_PASSWORD=${TEST_PGRST_DB_PASSWORD}
       - export IMAGE_TAG=${DRONE_BUILD_NUMBER}
       - kd --insecure-skip-tls-verify -f kube/network-policy.yml
       - kd --insecure-skip-tls-verify -f kube/secret.yml
       - kd --insecure-skip-tls-verify -f kube/service.yml
       - kd --insecure-skip-tls-verify -f kube/deployment.yml --timeout=5m
+      - kd --insecure-skip-tls-verify -f kube/ingress.yml
       - kd --insecure-skip-tls-verify -f kube/ingress.yml
     when:
       branch:
