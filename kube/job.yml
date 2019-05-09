@@ -7,7 +7,7 @@ spec:
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
   concurrencyPolicy: Forbid
-  schedule: {{ .PERF_TEST_SCHEDULE }}
+  schedule: "{{ .PERF_TEST_SCHEDULE }}"
   jobTemplate:
    spec:
      backoffLimit: 0
