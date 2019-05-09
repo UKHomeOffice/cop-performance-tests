@@ -9,6 +9,10 @@ runTests()
     echo "######## TEST RUN STATUS : $TEST_RUN_STATUS #######"
 
     cat /bzt/bzt_artifacts/bzt.log
+
+    ls -lrt /bzt/bzt_artifacts/
+
+    cat /bzt/bzt_artifacts/output.csv
 }
 
 uploadReport()
