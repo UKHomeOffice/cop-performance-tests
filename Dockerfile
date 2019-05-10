@@ -12,7 +12,6 @@ RUN yum install yum-plugin-remove-with-leaves -y && \
   useradd -g 1000 -u 1000 perftestuser
 
 COPY . /bzt/
-COPY jmeter-taurus /.bzt/jmeter-taurus/
 COPY config/90-artifacts-dir.json /etc/bzt.d/
 COPY config/90-no-console.json /etc/bzt.d/
 
