@@ -14,7 +14,7 @@ spec:
      template:
       spec:
         containers:
-          - name: {{.NAME}}
+          - name: {{.NAME }}
             image: quay.io/ukhomeofficedigital/cop-performance-tests:latest
             env:
               - name: AUTH_CLIENT_ID
@@ -82,7 +82,7 @@ spec:
                   secretKeyRef:
                     name: {{ .NAME }}
                     key: dbAnonRole
-           command:
+            command:
               - /bin/sh
               - -c
               - >
