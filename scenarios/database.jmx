@@ -60,7 +60,7 @@
           <stringProp name="checkQuery"></stringProp>
           <stringProp name="connectionAge">5000</stringProp>
           <stringProp name="dataSource">sampleReq</stringProp>
-          <stringProp name="dbUrl">jdbc:${dbUrl}</stringProp>
+          <stringProp name="dbUrl">${dbUrl}</stringProp>
           <stringProp name="driver">org.postgresql.Driver</stringProp>
           <stringProp name="initQuery"></stringProp>
           <boolProp name="keepAlive">true</boolProp>
