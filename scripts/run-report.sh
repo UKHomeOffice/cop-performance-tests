@@ -12,7 +12,7 @@ runTests()
 
     ls -lrt /bzt/bzt_artifacts/
 
-    cat /bzt/bzt_artifacts/output.csv
+    cat /bzt/bzt_artifacts/output-db.csv
 }
 
 uploadReport()

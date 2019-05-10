@@ -13,6 +13,9 @@ scenarios:
   database:
     script: /bzt/scenarios/database.jmx
 modules:
+  jmeter:
+    path: ~/.bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter
+    version: ${jmeterVersion}
     properties:
       jmeter.reportgenerator.apdex_satisfied_threshold: 1000
       jmeter.reportgenerator.report_title: JMeter Taurus Demo
