@@ -62,7 +62,8 @@
           <stringProp name="dataSource">sampleReq</stringProp>
           <stringProp name="dbUrl">${dbUrl}</stringProp>
           <stringProp name="driver">org.postgresql.Driver</stringProp>
-          <stringProp name="initQuery"></stringProp>
+          <stringProp name="initQuery">SET SESSION ROLE ${dbAnonRole}
+</stringProp>
           <boolProp name="keepAlive">true</boolProp>
           <stringProp name="password">${dbPassword}</stringProp>
           <stringProp name="poolMax">0</stringProp>
@@ -71,19 +72,6 @@
           <stringProp name="trimInterval">60000</stringProp>
           <stringProp name="username">${dbUserName}</stringProp>
         </JDBCDataSource>
-        <hashTree/>
-        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request" enabled="true">
-          <stringProp name="dataSource">sampleReq</stringProp>
-          <stringProp name="query">SET SESSION ROLE ${dbAnonRole}
-</stringProp>
-          <stringProp name="queryArguments"></stringProp>
-          <stringProp name="queryArgumentsTypes"></stringProp>
-          <stringProp name="queryTimeout"></stringProp>
-          <stringProp name="queryType">Select Statement</stringProp>
-          <stringProp name="resultSetHandler">Store as String</stringProp>
-          <stringProp name="resultVariable"></stringProp>
-          <stringProp name="variableNames"></stringProp>
-        </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request" enabled="true">
           <stringProp name="dataSource">sampleReq</stringProp>
