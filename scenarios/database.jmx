@@ -59,7 +59,7 @@
           <boolProp name="autocommit">true</boolProp>
           <stringProp name="checkQuery"></stringProp>
           <stringProp name="connectionAge">5000</stringProp>
-          <stringProp name="dataSource">postgres</stringProp>
+          <stringProp name="dataSource">jdbc</stringProp>
           <stringProp name="dbUrl">${dbUrl}</stringProp>
           <stringProp name="driver">org.postgresql.Driver</stringProp>
           <stringProp name="initQuery"></stringProp>
@@ -73,7 +73,7 @@
         </JDBCDataSource>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request" enabled="true">
-          <stringProp name="dataSource">postgres</stringProp>
+          <stringProp name="dataSource">jdbc</stringProp>
           <stringProp name="query">select *  from ${dbSchema}.rf_gender</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
