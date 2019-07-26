@@ -18,61 +18,44 @@ pipeline:
   deploy_to_test:
     image: quay.io/ukhomeofficedigital/kd
     secrets:
-      - TEST_NAME
-      - TEST_KUBE_NAMESPACE
-      - TEST_KUBE_SERVER
-      - TEST_KUBE_TOKEN
-      - TEST_INTERNAL_CA_URL
-      - TEST_NO_LOGGING_URL_PARAMS
-      - TEST_NO_LOGGING_BODY
-      - TEST_NO_LOGGING_RESPONSE
-      - TEST_KEYCLOAK_URL
-      - TEST_KEYCLOAK_REALM
-      - TEST_KEYCLOAK_SECRET
-      - TEST_INT_DOMAIN
-      - TEST_EXT_DOMAIN
-      - TEST_PROTOCOL
-      - TEST_POSTGREST_NAME
-      - TEST_SLACK_WEB_HOOK
-      - TEST_S3_KMS_KEY_ID
-      - TEST_S3_ACCESS_KEY
-      - TEST_S3_BUCKET_NAME
-      - TEST_S3_SECRET_KEY
-      - TEST_AUTH_CLIENT_SECRET
-      - TEST_PERF_TEST_SCHEDULE
-      - TEST_DB_URL
-      - TEST_DB_SCHEMA
-      - TEST_DB_USERNAME
-      - TEST_DB_PASSWORD
-      - TEST_DB_ANON_ROLE
+      - DEV_NAME
+      - DEV_KUBE_NAMESPACE
+      - DEV_KUBE_SERVER
+      - DEV_KUBE_TOKEN
+      - DEV_KEYCLOAK_URL
+      - DEV_KEYCLOAK_REALM
+      - DEV_EXT_DOMAIN
+      - DEV_POSTGREST_NAME
+      - DEV_SLACK_WEB_HOOK
+      - DEV_S3_KMS_KEY_ID
+      - DEV_S3_ACCESS_KEY
+      - DEV_S3_BUCKET_NAME
+      - DEV_S3_SECRET_KEY
+      - DEV_AUTH_CLIENT_ID
+      - DEV_AUTH_CLIENT_SECRET
+      - DEV_REFDATA_URL
+      - DEV_REFDATA_BASE_URL
+      - DEV_REFDATA_USERNAME
+      - DEV_REFDATA_PASSWORD
     commands:
-      - export NAME=$${TEST_NAME}
-      - export KUBE_NAMESPACE=$${TEST_KUBE_NAMESPACE}
-      - export KUBE_SERVER=$${TEST_KUBE_SERVER}
-      - export KUBE_TOKEN=$${TEST_KUBE_TOKEN}
-      - export INTERNAL_CA_URL=$${TEST_INTERNAL_CA_URL}
-      - export NO_LOGGING_URL_PARAMS=$${TEST_NO_LOGGING_URL_PARAMS}
-      - export NO_LOGGING_BODY=$${TEST_NO_LOGGING_BODY}
-      - export NO_LOGGING_RESPONSE=$${TEST_NO_LOGGING_RESPONSE}
-      - export KEYCLOAK_URL=$${TEST_KEYCLOAK_URL}
-      - export KEYCLOAK_REALM=$${TEST_KEYCLOAK_REALM}
-      - export KEYCLOAK_SECRET=$${TEST_KEYCLOAK_SECRET}
-      - export INT_DOMAIN=$${TEST_INT_DOMAIN}
-      - export EXT_DOMAIN=$${TEST_EXT_DOMAIN}
-      - export PROTOCOL=$${TEST_PROTOCOL}
-      - export POSTGREST_NAME=$${TEST_POSTGREST_NAME}
-      - export SLACK_WEB_HOOK=$${TEST_SLACK_WEB_HOOK}
-      - export S3_KMS_KEY_ID=$${TEST_S3_KMS_KEY_ID}
-      - export S3_ACCESS_KEY=$${TEST_S3_ACCESS_KEY}
-      - export S3_BUCKET_NAME=$${TEST_S3_BUCKET_NAME}
-      - export S3_SECRET_KEY=$${TEST_S3_SECRET_KEY}
-      - export AUTH_CLIENT_SECRET=$${TEST_AUTH_CLIENT_SECRET}
-      - export PERF_TEST_SCHEDULE=$${TEST_PERF_TEST_SCHEDULE}
-      - export DB_URL=$${TEST_DB_URL}
-      - export DB_SCHEMA=$${TEST_DB_SCHEMA}
-      - export DB_USERNAME=$${TEST_DB_USERNAME}
-      - export DB_PASSWORD=$${TEST_DB_PASSWORD}
-      - export DB_ANON_ROLE=$${TEST_DB_ANON_ROLE}
+      - export NAME=$${DEV_NAME}
+      - export KUBE_NAMESPACE=$${DEV_KUBE_NAMESPACE}
+      - export KUBE_SERVER=$${DEV_KUBE_SERVER}
+      - export KUBE_TOKEN=$${DEV_KUBE_TOKEN}
+      - export KEYCLOAK_URL=$${DEV_KEYCLOAK_URL}
+      - export KEYCLOAK_REALM=$${DEV_KEYCLOAK_REALM}
+      - export EXT_DOMAIN=$${DEV_EXT_DOMAIN}
+      - export SLACK_WEB_HOOK=$${DEV_SLACK_WEB_HOOK}
+      - export S3_KMS_KEY_ID=$${DEV_S3_KMS_KEY_ID}
+      - export S3_ACCESS_KEY=$${DEV_S3_ACCESS_KEY}
+      - export S3_BUCKET_NAME=$${DEV_S3_BUCKET_NAME}
+      - export S3_SECRET_KEY=$${DEV_S3_SECRET_KEY}
+      - export AUTH_CLIENT_SECRET=$${DEV_AUTH_CLIENT_SECRET}
+      - export AUTH_CLIENT_ID=$${DEV_AUTH_CLIENT_ID}
+      - export REFDATA_URL=$${DEV_REFDATA_URL}
+      - export REFDATA_BASE_URL=$${DEV_REFDATA_BASE_URL}
+      - export REFDATA_USERNAME=$${DEV_REFDATA_USERNAME}
+      - export REFDATA_PASSWORD=$${DEV_REFDATA_PASSWORD}
       - export IMAGE_TAG=${DRONE_BUILD_NUMBER}
       - kd --insecure-skip-tls-verify -f kube/secret.yml
       - kd --insecure-skip-tls-verify -f kube/job.yml
