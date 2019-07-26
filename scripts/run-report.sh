@@ -2,7 +2,8 @@
 
 runTests()
 {
-    bzt -l bzt.log /bzt/config/config.yml
+    cd /bzt
+    bzt -l bzt.log config/config.yml
 
     TEST_RUN_STATUS=$?
 
@@ -68,7 +69,7 @@ sendSlackMessage()
 }
 
 runTests
-uploadReport
-createReportUrl
-createSlackMessage
-sendSlackMessage
+#uploadReport
+#createReportUrl
+#createSlackMessage
+#sendSlackMessage
