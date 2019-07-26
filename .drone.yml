@@ -12,7 +12,7 @@ pipeline:
       - latest
     when:
       branch:
-#        - master
+        - master
       event:
         - push
   deploy_to_test:
