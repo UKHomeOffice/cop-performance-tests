@@ -61,7 +61,7 @@ pipeline:
       - kd --insecure-skip-tls-verify -f kube/job.yml
     when:
       branch:
-        - master
+#        - master
       event:
         - push
         - deployment
