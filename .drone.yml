@@ -24,7 +24,6 @@ pipeline:
       - DEV_KUBE_TOKEN
       - DEV_KEYCLOAK_URL
       - DEV_KEYCLOAK_REALM
-      - DEV_EXT_DOMAIN
       - DEV_POSTGREST_NAME
       - DEV_SLACK_WEB_HOOK
       - DEV_S3_KMS_KEY_ID
@@ -44,7 +43,6 @@ pipeline:
       - export KUBE_TOKEN=$${DEV_KUBE_TOKEN}
       - export KEYCLOAK_URL=$${DEV_KEYCLOAK_URL}
       - export KEYCLOAK_REALM=$${DEV_KEYCLOAK_REALM}
-      - export EXT_DOMAIN=$${DEV_EXT_DOMAIN}
       - export SLACK_WEB_HOOK=$${DEV_SLACK_WEB_HOOK}
       - export S3_KMS_KEY_ID=$${DEV_S3_KMS_KEY_ID}
       - export S3_ACCESS_KEY=$${DEV_S3_ACCESS_KEY}
