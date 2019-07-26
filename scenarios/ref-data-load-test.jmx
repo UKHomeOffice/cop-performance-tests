@@ -24,14 +24,14 @@
             <stringProp name="Argument.value">${__env(AUTH_CLIENT_SECRET)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="KEYCLOAK_URL" elementType="Argument">
-            <stringProp name="Argument.name">KEYCLOAK_URL</stringProp>
-            <stringProp name="Argument.value">${__env(KEYCLOAK_URL)}</stringProp>
+          <elementProp name="KEYCLOCK_URL" elementType="Argument">
+            <stringProp name="Argument.name">KEYCLOCK_URL</stringProp>
+            <stringProp name="Argument.value">${__env(KEYCLOCK_URL)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="KEYCLOAK_PATH" elementType="Argument">
-            <stringProp name="Argument.name">KEYCLOAK_PATH</stringProp>
-            <stringProp name="Argument.value">${__env(KEYCLOAK_PATH)}</stringProp>
+          <elementProp name="KEYCLOCK_PATH" elementType="Argument">
+            <stringProp name="Argument.name">KEYCLOCK_PATH</stringProp>
+            <stringProp name="Argument.value">${__env(KEYCLOCK_PATH)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="REFDATA_URL" elementType="Argument">
@@ -67,11 +67,11 @@
               </elementProp>
             </collectionProp>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">${KEYCLOAK_URL}</stringProp>
+          <stringProp name="HTTPSampler.domain">${KEYCLOCK_URL}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">${KEYCLOAK_PATH}</stringProp>
+          <stringProp name="HTTPSampler.path">${KEYCLOCK_PATH}</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -473,7 +473,7 @@ WDS.sampleResult.sampleEnd()
             <connectTime>true</connectTime>
           </value>
         </objProp>
-        <stringProp name="filename">bzt/bzt_artifacts/summary-report.csv</stringProp>
+        <stringProp name="filename">/bzt/bzt_artifacts/summary-report.csv</stringProp>
       </ResultCollector>
       <hashTree/>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
