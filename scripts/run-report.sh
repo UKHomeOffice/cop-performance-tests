@@ -21,8 +21,8 @@ uploadReport()
 
     echo ${TAURUS_ARTIFACTS_DIR}
 
-    s3cmd --region=eu-west-2 --server-side-encryption --server-side-encryption-kms-id=${S3_KMS_KEY_ID} --access_key=${S3_ACCESS_KEY} --secret_key=${S3_SECRET_KEY} put --recursive /bzt/bzt_artifacts/report/ s3://${S3_BUCKET_NAME}/test-reports/perf-${REPORT_DATE_TIME}/
-    s3cmd --region=eu-west-2 --server-side-encryption --server-side-encryption-kms-id=${S3_KMS_KEY_ID} --access_key=${S3_ACCESS_KEY} --secret_key=${S3_SECRET_KEY} --recursive modify --add-header='content-type':'text/css' --exclude '' --include '.css' s3://${S3_BUCKET_NAME}/test-reports/perf-${REPORT_DATE_TIME}/
+    s3cmd --region=eu-west-2 --server-side-encryption --server-side-encryption-kms-id=${S3_KMS_KEY_ID} --access_key=${S3_ACCESS_KEY} --secret_key=${S3_SECRET_KEY} put --recursive /bzt/bzt_artifacts/report/ s3://${S3_BUCKET_NAME}/test-reports/performance-test-reports/perf-${REPORT_DATE_TIME}/ --no-mime-magic --guess-mime-type
+#    s3cmd --region=eu-west-2 --server-side-encryption --server-side-encryption-kms-id=${S3_KMS_KEY_ID} --access_key=${S3_ACCESS_KEY} --secret_key=${S3_SECRET_KEY} --recursive modify --add-header='content-type':'text/css' --exclude '' --include '.css' s3://${S3_BUCKET_NAME}/test-reports/performance-test-reports/perf-${REPORT_DATE_TIME}/
 
     REPORT_UPLOAD_STATUS=$?
 
@@ -32,28 +32,26 @@ uploadReport()
 
 createReportUrl()
 {
-    REPORT_BASE_URL="https://cop-s3-proxy.cop-test.homeoffice.gov.uk"
-    REPORT_FULL_URL="${REPORT_BASE_URL}/perf-$REPORT_DATE_TIME/index.html"
+    REPORT_BASE_URL="https://cop-test-reports.cop.dev.homeoffice.gov.uk"
+    REPORT_FULL_URL="${REPORT_BASE_URL}/performance-test-reports/perf-$REPORT_DATE_TIME/index.html"
 }
 
 createSlackMessage()
 {
-    TEST_ENV="[COP-Test]"
-
-    SLACK_MESSAGE="$TEST_ENV"
 
     if [ ${TEST_RUN_STATUS} = 0 ]; then
-        SLACK_MESSAGE+=" Test Execution Successful"
-        SLACK_EMOJI=":white_check_mark:"
+        SLACK_TEST_STATUS=" Test Execution *Successful*"
+        SLACK_COLOR="good"
     else
-        SLACK_MESSAGE+=" Test Execution Failed"
-        SLACK_EMOJI=":x:"
+        SLACK_TEST_STATUS=" Test Execution *Failed*"
+        SLACK_COLOR="danger"
     fi
-    SLACK_MESSAGE+="\n"
 
-    SLACK_MESSAGE+="Test Execution Report URL - ${REPORT_FULL_URL}"
+    SLACK_FALLBACK="${SLACK_TEST_STATUS} on ${KUBE_NAMESPACE}\nTest Execution Report URL - ${REPORT_FULL_URL}"
+    SLACK_TEXT="${SLACK_TEST_STATUS} on ${KUBE_NAMESPACE}"
 
-    echo "###### Slack Message :: ${SLACK_MESSAGE}"
+    echo "###### Slack Message :: ${SLACK_FALLBACK}"
+
 }
 
 sendSlackMessage()
@@ -61,10 +59,20 @@ sendSlackMessage()
     curl -X POST --data-urlencode \
     "payload={
            \"channel\": \"#cop-test-report\",
-           \"username\": \"TestReporter\",
-           \"text\": \"${SLACK_MESSAGE}\",
-           \"icon_emoji\": \"${SLACK_EMOJI}\"
+           \"username\": \"Performance Test\",
+           \"attachments\":
+                [
+					{
+						\"fallback\": \"${SLACK_FALLBACK}\",
+						\"text\": \"${SLACK_TEXT}\",
+						\"color\": \"${SLACK_COLOR}\",
+						\"title\": \"Test Report\",
+						\"title_link\": \"${REPORT_FULL_URL}\",
+						\"mrkdwn_in\": [\"text\", \"pretext\"]
+					}
+				]
         }" ${SLACK_WEB_HOOK}
+
 }
 
 runTests
