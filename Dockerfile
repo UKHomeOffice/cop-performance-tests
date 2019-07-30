@@ -17,7 +17,7 @@ COPY config/90-no-console.json /etc/bzt.d/
 
 USER 1000
 
-RUN chown -R "$USER":"$GROUP" "$HOME" /app /usr/src /drone /bzt
+RUN chown -R "$USER":"$GROUP" "$HOME"  /bzt
 
 VOLUME ["/bzt"]
 
