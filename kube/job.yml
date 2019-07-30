@@ -67,7 +67,8 @@ spec:
                     secretKeyRef:
                       name: {{ .NAME }}
                       key: refDataPassword
-
+                - name: KUBE_NAMESPACE
+                  value: {{ .KUBE_NAMESPACE }}
               command:
                 - /bin/sh
                 - -c
