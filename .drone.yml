@@ -36,6 +36,7 @@ pipeline:
       - DEV_REFDATA_BASE_URL
       - DEV_REFDATA_USERNAME
       - DEV_REFDATA_PASSWORD
+      - DEV_REPORT_BASE_URL
     commands:
       - export NAME=$${DEV_NAME}
       - export KUBE_NAMESPACE=$${DEV_KUBE_NAMESPACE}
@@ -54,6 +55,7 @@ pipeline:
       - export REFDATA_BASE_URL=$${DEV_REFDATA_BASE_URL}
       - export REFDATA_USERNAME=$${DEV_REFDATA_USERNAME}
       - export REFDATA_PASSWORD=$${DEV_REFDATA_PASSWORD}
+      - export REPORT_BASE_URL=$${DEV_REPORT_BASE_URL}
       - export IMAGE_TAG=${DRONE_BUILD_NUMBER}
       - kd --insecure-skip-tls-verify -f kube/secret.yml
       - kd --insecure-skip-tls-verify -f kube/job.yml

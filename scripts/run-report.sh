@@ -32,7 +32,6 @@ uploadReport()
 
 createReportUrl()
 {
-    REPORT_BASE_URL="https://cop-test-reports.cop.dev.homeoffice.gov.uk"
     REPORT_FULL_URL="${REPORT_BASE_URL}/perf-$REPORT_DATE_TIME/index.html"
 }
 
