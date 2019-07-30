@@ -48,6 +48,8 @@ spec:
                   value: {{ .REFDATA_URL }}
                 - name: REFDATA_BASE_URL
                   value: {{ .REFDATA_BASE_URL }}
+                - name: REPORT_BASE_URL
+                  value: {{ .REPORT_BASE_URL }}
                 - name: KEYCLOAK_URL
                   value: {{ .KEYCLOAK_URL }}
                 - name: KEYCLOAK_PATH
