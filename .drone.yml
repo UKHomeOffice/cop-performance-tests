@@ -2,9 +2,9 @@ pipeline:
   build:
     image: quay.io/ukhomeofficedigital/drone-docker
     secrets:
-      - NAME
+      - DEV_NAME
     commands:
-      - docker build -t $${NAME}:$${DRONE_COMMIT_SHA} .
+      - docker build -t $${DEV_NAME}:$${DRONE_COMMIT_SHA} .
     when:
       event:
         - push
@@ -12,11 +12,11 @@ pipeline:
   image_to_quay:
     image: quay.io/ukhomeofficedigital/drone-docker
     secrets:
-      - NAME
+      - DEV_NAME
       - DOCKER_USERNAME
       - DOCKER_PASSWORD
     registry: quay.io
-    repo: quay.io/ukhomeofficedigital/${NAME}
+    repo: quay.io/ukhomeofficedigital/${DEV_NAME}
     tags:
       - ${DRONE_BUILD_NUMBER}
       - ${DRONE_COMMIT_SHA}
