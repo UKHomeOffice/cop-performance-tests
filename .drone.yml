@@ -10,7 +10,7 @@ pipeline:
         - push
 
   image_to_quay:
-    image: quay.io/ukhomeofficedigital/drone-docker
+    image: quay.io/ukhomeofficedigital/cop-performance-tests
     secrets:
       - DEV_NAME
       - DOCKER_USERNAME
