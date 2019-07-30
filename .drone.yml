@@ -1,11 +1,22 @@
 pipeline:
+  build:
+    image: quay.io/ukhomeofficedigital/drone-docker
+    secrets:
+      - NAME
+    commands:
+      - docker build -t $${NAME}:$${DRONE_COMMIT_SHA} .
+    when:
+      event:
+        - push
+
   image_to_quay:
     image: quay.io/ukhomeofficedigital/drone-docker
     secrets:
+      - NAME
       - DOCKER_USERNAME
       - DOCKER_PASSWORD
     registry: quay.io
-    repo: quay.io/ukhomeofficedigital/cop-performance-tests
+    repo: quay.io/ukhomeofficedigital/${NAME}
     tags:
       - ${DRONE_BUILD_NUMBER}
       - ${DRONE_COMMIT_SHA}
@@ -61,7 +72,7 @@ pipeline:
       - kd --insecure-skip-tls-verify -f kube/job.yml
     when:
       branch:
-#        - master
+        - master
       event:
         - push
         - deployment
