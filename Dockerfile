@@ -15,9 +15,9 @@ COPY . /bzt/
 COPY config/90-artifacts-dir.json /etc/bzt.d/
 COPY config/90-no-console.json /etc/bzt.d/
 
-RUN chown -R perftestuser:perftestuser /bzt
-
 USER 1000
+
+RUN chown -R "$USER":"$GROUP" "$HOME" /app /usr/src /drone /bzt
 
 VOLUME ["/bzt"]
 
