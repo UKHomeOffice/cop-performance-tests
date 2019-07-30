@@ -5,6 +5,7 @@ ENV TAURUS_VERSION 1.13.5
 RUN yum install yum-plugin-remove-with-leaves -y && \
   yum install java-1.8.0-openjdk-headless.x86_64 python34-devel.x86_64 libxml2-devel.x86_64 \
   libxslt-devel.x86_64 zlib.x86_64 gcc.x86_64 -y && \
+  pip install --upgrade pip &&\
   pip install bzt && \
   pip install s3cmd && \
   yum remove python34-devel.x86_64 libxml2-devel.x86_64 libxslt-devel.x86_64 gcc.x86_64 --remove-leaves -y && \
