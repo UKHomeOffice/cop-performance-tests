@@ -9,9 +9,7 @@ RUN yum install yum-plugin-remove-with-leaves -y && \
   yum -y install python-pip && \
   pip install bzt && \
   pip install s3cmd && \
-  yum -y clean all && \
-  groupadd -g 1000 perftestuser && \
-  useradd -g 1000 -u 1000 perftestuser
+  yum -y clean all
 
 COPY . /bzt/
 COPY config/90-artifacts-dir.json /etc/bzt.d/
@@ -19,7 +17,7 @@ COPY config/90-no-console.json /etc/bzt.d/
 
 RUN chown -R perftestuser:perftestuser /bzt
 
-USER perftestuser
+USER 1000
 
 VOLUME ["/bzt"]
 
