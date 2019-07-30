@@ -24,9 +24,9 @@
             <stringProp name="Argument.value">${__env(AUTH_CLIENT_SECRET)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="KEYCLOCK_URL" elementType="Argument">
-            <stringProp name="Argument.name">KEYCLOCK_URL</stringProp>
-            <stringProp name="Argument.value">${__env(KEYCLOCK_URL)}</stringProp>
+          <elementProp name="KEYCLOAK_URL" elementType="Argument">
+            <stringProp name="Argument.name">KEYCLOAK_URL</stringProp>
+            <stringProp name="Argument.value">${__env(KEYCLOAK_URL)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="KEYCLOCK_PATH" elementType="Argument">
@@ -67,7 +67,7 @@
               </elementProp>
             </collectionProp>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">${KEYCLOCK_URL}</stringProp>
+          <stringProp name="HTTPSampler.domain">${KEYCLOAK_URL}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
