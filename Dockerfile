@@ -15,9 +15,10 @@ COPY . /bzt/
 COPY config/90-artifacts-dir.json /etc/bzt.d/
 COPY config/90-no-console.json /etc/bzt.d/
 
-USER 1000
+RUN useradd -g 1000 -u 1000 perftestuser && \
+RUN chown -R perftestuser:perftestuser /bzt
 
-RUN chown -R "$USER":"$GROUP" "$HOME"  /bzt
+USER perftestuser
 
 VOLUME ["/bzt"]
 
