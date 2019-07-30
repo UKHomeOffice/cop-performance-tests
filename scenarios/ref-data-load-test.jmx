@@ -29,9 +29,9 @@
             <stringProp name="Argument.value">${__env(KEYCLOAK_URL)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="KEYCLOCK_PATH" elementType="Argument">
-            <stringProp name="Argument.name">KEYCLOCK_PATH</stringProp>
-            <stringProp name="Argument.value">${__env(KEYCLOCK_PATH)}</stringProp>
+          <elementProp name="KEYCLOAK_PATH" elementType="Argument">
+            <stringProp name="Argument.name">KEYCLOAK_PATH</stringProp>
+            <stringProp name="Argument.value">${__env(KEYCLOAK_PATH)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="REFDATA_URL" elementType="Argument">
@@ -71,7 +71,7 @@
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">${KEYCLOCK_PATH}</stringProp>
+          <stringProp name="HTTPSampler.path">${KEYCLOAK_PATH}</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
