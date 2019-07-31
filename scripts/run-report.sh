@@ -2,7 +2,9 @@
 
 runTests()
 {
-    bzt -l bzt.log /bzt/config/config.yml
+    testName=$1
+
+    bzt -l bzt.log /bzt/config/${testName}.yml
 
     TEST_RUN_STATUS=$?
 
@@ -74,8 +76,15 @@ sendSlackMessage()
 
 }
 
-runTests
+if [$@ == ""]; then
+    echo "You provided empty arguments, Please provide name of test to run"
+else
+    echo "You provided the arguments:" "$1"
+
+runTests $1
 uploadReport
 createReportUrl
 createSlackMessage
 sendSlackMessage
+
+fi

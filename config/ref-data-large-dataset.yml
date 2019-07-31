@@ -5,7 +5,7 @@ execution:
   - scenario: perf-tests
 scenarios:
   perf-tests:
-    script: /bzt/scenarios/ref-data-load-test.jmx
+    script: /bzt/scenarios/ref-data-large-dataset.jmx
 modules:
   jmeter:
     path: /bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter
@@ -15,7 +15,7 @@ modules:
 services:
   - module: shellexec
     post-process:
-      - /bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter -p /bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter.properties -q ${TAURUS_ARTIFACTS_DIR}/jmeter-bzt.properties -g ${TAURUS_ARTIFACTS_DIR}/summary-report.csv -o ${TAURUS_ARTIFACTS_DIR}/report
+      - /bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter -p /bzt/jmeter-taurus/${jmeterVersion}/bin/jmeter.properties -q ${TAURUS_ARTIFACTS_DIR}/jmeter-bzt.properties -g ${TAURUS_ARTIFACTS_DIR}/ref-data-large-dataset.csv -o ${TAURUS_ARTIFACTS_DIR}/report
 reporting:
   - module: final-stats
   - module: console

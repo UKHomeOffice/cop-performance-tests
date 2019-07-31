@@ -7,7 +7,7 @@ spec:
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
   concurrencyPolicy: Forbid
-  schedule: "0 8-16 * * 1-5"
+  schedule: "0 8 * * 1-5"
   jobTemplate:
     spec:
       backoffLimit: 0
@@ -76,7 +76,7 @@ spec:
                 - -c
                 - >
                   cd /bzt
-                  && ./scripts/run-report.sh
+                  && ./scripts/run-report.sh ref-data-small-dataset
               securityContext:
                 runAsNonRoot: true
                 runAsUser: 1000

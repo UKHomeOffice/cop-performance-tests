@@ -69,7 +69,8 @@ pipeline:
       - export REPORT_BASE_URL=$${DEV_REPORT_BASE_URL}
       - export IMAGE_TAG=${DRONE_BUILD_NUMBER}
       - kd --insecure-skip-tls-verify -f kube/secret.yml
-      - kd --insecure-skip-tls-verify -f kube/job.yml
+      - kd --insecure-skip-tls-verify -f kube/ref-data-small-dataset.yml
+      - kd --insecure-skip-tls-verify -f kube/ref-data-large-dataset.yml
     when:
       branch:
         - master
