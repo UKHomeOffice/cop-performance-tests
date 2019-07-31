@@ -73,7 +73,7 @@ pipeline:
       - kd --insecure-skip-tls-verify -f kube/ref-data-large-dataset.yml
     when:
       branch:
-        - master
+#        - master
       event:
         - push
         - deployment
