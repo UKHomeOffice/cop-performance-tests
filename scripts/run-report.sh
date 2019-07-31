@@ -39,12 +39,13 @@ createReportUrl()
 
 createSlackMessage()
 {
+    test=$1
 
     if [ ${TEST_RUN_STATUS} = 0 ]; then
-        SLACK_TEST_STATUS=" Test Execution *Successful*"
+        SLACK_TEST_STATUS="${test} Test Execution *Successful*"
         SLACK_COLOR="good"
     else
-        SLACK_TEST_STATUS=" Test Execution *Failed*"
+        SLACK_TEST_STATUS="${test} Test Execution *Failed*"
         SLACK_COLOR="danger"
     fi
 
@@ -84,7 +85,7 @@ else
 runTests $1
 uploadReport
 createReportUrl
-createSlackMessage
+createSlackMessage $1
 sendSlackMessage
 
 fi
