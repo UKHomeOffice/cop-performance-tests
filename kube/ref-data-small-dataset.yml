@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ .NAME }}
+  name: perf-ref-data-small-dataset
   namespace: {{ .KUBE_NAMESPACE }}
 spec:
   successfulJobsHistoryLimit: 3
@@ -14,7 +14,7 @@ spec:
       template:
         spec:
           containers:
-            - name: {{.NAME }}
+            - name: perf-ref-data-small-dataset
               image: quay.io/ukhomeofficedigital/cop-performance-tests:latest
               env:
                 - name: AUTH_CLIENT_ID
