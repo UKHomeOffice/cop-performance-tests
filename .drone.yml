@@ -10,13 +10,12 @@ pipeline:
         - push
 
   image_to_quay:
-    image: quay.io/ukhomeofficedigital/cop-performance-tests
+    image: quay.io/ukhomeofficedigital/drone-docker
     secrets:
-      - DEV_NAME
       - DOCKER_USERNAME
       - DOCKER_PASSWORD
     registry: quay.io
-    repo: quay.io/ukhomeofficedigital/${DEV_NAME}
+    repo: quay.io/ukhomeofficedigital/cop-performance-tests
     tags:
       - ${DRONE_BUILD_NUMBER}
       - ${DRONE_COMMIT_SHA}
