@@ -1,87 +1,95 @@
 pipeline:
+  synch_dev_secrets:
+    image: quay.io/ukhomeofficedigital/cop-secrets
+    environment:
+      - DRONE_SERVER=https://drone.acp.homeoffice.gov.uk
+    secrets:
+      - source: DEV_DRONE_AWS_ACCESS_KEY_ID
+        target: AWS_ACCESS_KEY_ID
+      - source: DEV_DRONE_AWS_SECRET_ACCESS_KEY
+        target: AWS_SECRET_ACCESS_KEY
+      - source: DRONE_PUBLIC_TOKEN
+        target: DRONE_TOKEN
+    when:
+       event: push
+
   image_to_quay:
     image: quay.io/ukhomeofficedigital/drone-docker
     secrets:
-      - DOCKER_USERNAME
-      - DOCKER_PASSWORD
+      - source: DOCKER_USERNAME
+        target: DOCKER_USERNAME
+      - source: DOCKER_PASSWORD
+        target: DOCKER_PASSWORD
     registry: quay.io
     repo: quay.io/ukhomeofficedigital/cop-performance-tests
-    tags:
-      - ${DRONE_BUILD_NUMBER}
-      - ${DRONE_COMMIT_SHA}
-      - latest
+    tags: ${DRONE_COMMIT_SHA}
     when:
-      branch:
-        - master
-      event:
-        - push
-  deploy_to_test:
+      branch: master
+      event: push
+
+  deploy_to_dev:
     image: quay.io/ukhomeofficedigital/kd
     secrets:
-      - TEST_NAME
-      - TEST_KUBE_NAMESPACE
-      - TEST_KUBE_SERVER
-      - TEST_KUBE_TOKEN
-      - TEST_INTERNAL_CA_URL
-      - TEST_NO_LOGGING_URL_PARAMS
-      - TEST_NO_LOGGING_BODY
-      - TEST_NO_LOGGING_RESPONSE
-      - TEST_KEYCLOAK_URL
-      - TEST_KEYCLOAK_REALM
-      - TEST_KEYCLOAK_SECRET
-      - TEST_INT_DOMAIN
-      - TEST_EXT_DOMAIN
-      - TEST_PROTOCOL
-      - TEST_POSTGREST_NAME
-      - TEST_SLACK_WEB_HOOK
-      - TEST_S3_KMS_KEY_ID
-      - TEST_S3_ACCESS_KEY
-      - TEST_S3_BUCKET_NAME
-      - TEST_S3_SECRET_KEY
-      - TEST_AUTH_CLIENT_SECRET
-      - TEST_PERF_TEST_SCHEDULE
-      - TEST_DB_URL
-      - TEST_DB_SCHEMA
-      - TEST_DB_USERNAME
-      - TEST_DB_PASSWORD
-      - TEST_DB_ANON_ROLE
+      - source: DEV_KUBE_SERVER
+        target: KUBE_SERVER
+      - source: DEV_KUBE_TOKEN
+        target: KUBE_TOKEN
+      - source: DEV_PERF_TEST_NAME
+        target: NAME
+      - source: DEV_PERF_TEST_KUBE_NAMESPACE
+        target: KUBE_NAMESPACE
+      - source: DEV_PERF_TEST_INTERNAL_CA_URL
+        target: INTERNAL_CA_URL
+      - source: DEV_PERF_TEST_NO_LOGGING_URL_PARAMS
+        target: NO_LOGGING_URL_PARAMS
+      - source: DEV_PERF_TEST_NO_LOGGING_BODY
+        target: NO_LOGGING_BODY
+      - source: DEV_PERF_TEST_NO_LOGGING_RESPONSE
+        target: NO_LOGGING_RESPONSE
+      - source: DEV_PERF_TEST_KEYCLOAK_URL
+        target: KEYCLOAK_URL
+      - source: DEV_PERF_TEST_KEYCLOAK_REALM
+        target: KEYCLOAK_REALM
+      - source: DEV_PERF_TEST_KEYCLOAK_SECRET
+        target: KEYCLOAK_SECRET
+      - source: DEV_PERF_TEST_INT_DOMAIN
+        target: INT_DOMAIN
+      - source: DEV_PERF_TEST_EXT_DOMAIN
+        target: EXT_DOMAIN
+      - source: DEV_PERF_TEST_PROTOCOL
+        target: PROTOCOL
+      - source: DEV_PERF_TEST_POSTGREST_NAME
+        target: POSTGREST_NAME
+      - source: DEV_PERF_TEST_SLACK_WEB_HOOK
+        target: TEST_SLACK_WEB_HOOK
+      - source: DEV_PERF_TEST_S3_KMS_KEY_ID
+        target: S3_KMS_KEY_ID
+      - source: DEV_PERF_TEST_S3_ACCESS_KEY
+        target: S3_ACCESS_KEY
+      - source: DEV_PERF_TEST_S3_BUCKET_NAME
+        target: S3_BUCKET_NAME
+      - source: DEV_PERF_TEST_S3_SECRET_KEY
+        target: S3_SECRET_KEY
+      - source: DEV_PERF_TEST_AUTH_CLIENT_SECRET
+        target: AUTH_CLIENT_SECRET
+      - source: DEV_PERF_TEST_PERF_TEST_SCHEDULE
+        target: PERF_TEST_SCHEDULE
+      - source: DEV_PERF_TEST_DB_URL
+        target: DB_URL
+      - source: DEV_PERF_TEST_DB_SCHEMA
+        target: DB_SCHEMA
+      - source: DEV_PERF_TEST_DB_USERNAME
+        target: DB_USERNAME
+      - source: DEV_PERF_TEST_DB_PASSWORD
+        target: DB_PASSWORD
+      - source: DEV_PERF_TEST_DB_ANON_ROLE
+        target: DB_ANON_ROLE
     commands:
-      - export NAME=$${TEST_NAME}
-      - export KUBE_NAMESPACE=$${TEST_KUBE_NAMESPACE}
-      - export KUBE_SERVER=$${TEST_KUBE_SERVER}
-      - export KUBE_TOKEN=$${TEST_KUBE_TOKEN}
-      - export INTERNAL_CA_URL=$${TEST_INTERNAL_CA_URL}
-      - export NO_LOGGING_URL_PARAMS=$${TEST_NO_LOGGING_URL_PARAMS}
-      - export NO_LOGGING_BODY=$${TEST_NO_LOGGING_BODY}
-      - export NO_LOGGING_RESPONSE=$${TEST_NO_LOGGING_RESPONSE}
-      - export KEYCLOAK_URL=$${TEST_KEYCLOAK_URL}
-      - export KEYCLOAK_REALM=$${TEST_KEYCLOAK_REALM}
-      - export KEYCLOAK_SECRET=$${TEST_KEYCLOAK_SECRET}
-      - export INT_DOMAIN=$${TEST_INT_DOMAIN}
-      - export EXT_DOMAIN=$${TEST_EXT_DOMAIN}
-      - export PROTOCOL=$${TEST_PROTOCOL}
-      - export POSTGREST_NAME=$${TEST_POSTGREST_NAME}
-      - export SLACK_WEB_HOOK=$${TEST_SLACK_WEB_HOOK}
-      - export S3_KMS_KEY_ID=$${TEST_S3_KMS_KEY_ID}
-      - export S3_ACCESS_KEY=$${TEST_S3_ACCESS_KEY}
-      - export S3_BUCKET_NAME=$${TEST_S3_BUCKET_NAME}
-      - export S3_SECRET_KEY=$${TEST_S3_SECRET_KEY}
-      - export AUTH_CLIENT_SECRET=$${TEST_AUTH_CLIENT_SECRET}
-      - export PERF_TEST_SCHEDULE=$${TEST_PERF_TEST_SCHEDULE}
-      - export DB_URL=$${TEST_DB_URL}
-      - export DB_SCHEMA=$${TEST_DB_SCHEMA}
-      - export DB_USERNAME=$${TEST_DB_USERNAME}
-      - export DB_PASSWORD=$${TEST_DB_PASSWORD}
-      - export DB_ANON_ROLE=$${TEST_DB_ANON_ROLE}
-      - export IMAGE_TAG=${DRONE_BUILD_NUMBER}
-      - kd --insecure-skip-tls-verify -f kube/secret.yml
-      - kd --insecure-skip-tls-verify -f kube/job.yml
+      - export IMAGE_TAG=${DRONE_COMMIT_SHA}
+    #- kd --insecure-skip-tls-verify -f kube/job.yml
     when:
-      branch:
-        - master
-      event:
-        - push
-        - deployment
+      branch: master
+      event: [ push, deployment ]
 
   notify:
     image: plugins/slack
