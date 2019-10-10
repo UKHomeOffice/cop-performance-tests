@@ -82,9 +82,9 @@ pipeline:
     commands:
       - export IMAGE_TAG=${DRONE_COMMIT_SHA}
       - kd --insecure-skip-tls-verify -f kube/ref-data-small-dataset.yml
-    #  - kd --insecure-skip-tls-verify -f kube/ref-data-large-dataset.yml
+      - kd --insecure-skip-tls-verify -f kube/ref-data-large-dataset.yml
     when:
-    #  branch: master
+      branch: master
       event: [ push, deployment ]
 
   notify:
