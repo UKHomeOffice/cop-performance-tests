@@ -84,7 +84,7 @@ pipeline:
       - kd --insecure-skip-tls-verify -f kube/ref-data-small-dataset.yml
       - kd --insecure-skip-tls-verify -f kube/ref-data-large-dataset.yml
     when:
-      branch: master
+    #  branch: master
       event: [ push, deployment ]
 
   notify:
