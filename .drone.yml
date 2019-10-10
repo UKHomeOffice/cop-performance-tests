@@ -13,6 +13,17 @@ pipeline:
     when:
        event: push
 
+  build:
+    image: quay.io/ukhomeofficedigital/drone-docker
+    secrets:
+      - source: DEV_PERF_TEST_NAME
+        target: NAME
+    commands:
+      - docker build -t $${NAME}:$${DRONE_COMMIT_SHA} .
+    when:
+      event:
+        - push
+
   image_to_quay:
     image: quay.io/ukhomeofficedigital/drone-docker
     secrets:
@@ -30,38 +41,22 @@ pipeline:
   deploy_to_dev:
     image: quay.io/ukhomeofficedigital/kd
     secrets:
-      - source: DEV_KUBE_SERVER
-        target: KUBE_SERVER
-      - source: DEV_KUBE_TOKEN
-        target: KUBE_TOKEN
       - source: DEV_PERF_TEST_NAME
         target: NAME
       - source: DEV_PERF_TEST_KUBE_NAMESPACE
         target: KUBE_NAMESPACE
-      - source: DEV_PERF_TEST_INTERNAL_CA_URL
-        target: INTERNAL_CA_URL
-      - source: DEV_PERF_TEST_NO_LOGGING_URL_PARAMS
-        target: NO_LOGGING_URL_PARAMS
-      - source: DEV_PERF_TEST_NO_LOGGING_BODY
-        target: NO_LOGGING_BODY
-      - source: DEV_PERF_TEST_NO_LOGGING_RESPONSE
-        target: NO_LOGGING_RESPONSE
-      - source: DEV_PERF_TEST_KEYCLOAK_URL
+      - source: DEV_KUBE_SERVER
+        target: KUBE_SERVER
+      - source: DEV_KUBE_TOKEN
+        target: KUBE_TOKEN
+      - source: DEV_KEYCLOAK_URL
         target: KEYCLOAK_URL
-      - source: DEV_PERF_TEST_KEYCLOAK_REALM
+      - source: DEV_KEYCLOAK_REALM
         target: KEYCLOAK_REALM
-      - source: DEV_PERF_TEST_KEYCLOAK_SECRET
-        target: KEYCLOAK_SECRET
-      - source: DEV_PERF_TEST_INT_DOMAIN
-        target: INT_DOMAIN
-      - source: DEV_PERF_TEST_EXT_DOMAIN
-        target: EXT_DOMAIN
-      - source: DEV_PERF_TEST_PROTOCOL
-        target: PROTOCOL
       - source: DEV_PERF_TEST_POSTGREST_NAME
         target: POSTGREST_NAME
       - source: DEV_PERF_TEST_SLACK_WEB_HOOK
-        target: TEST_SLACK_WEB_HOOK
+        target: SLACK_WEB_HOOK
       - source: DEV_PERF_TEST_S3_KMS_KEY_ID
         target: S3_KMS_KEY_ID
       - source: DEV_PERF_TEST_S3_ACCESS_KEY
@@ -70,25 +65,26 @@ pipeline:
         target: S3_BUCKET_NAME
       - source: DEV_PERF_TEST_S3_SECRET_KEY
         target: S3_SECRET_KEY
+      - source: DEV_PERF_TEST_AUTH_CLIENT_ID
+        target: AUTH_CLIENT_ID
       - source: DEV_PERF_TEST_AUTH_CLIENT_SECRET
         target: AUTH_CLIENT_SECRET
-      - source: DEV_PERF_TEST_PERF_TEST_SCHEDULE
-        target: PERF_TEST_SCHEDULE
-      - source: DEV_PERF_TEST_DB_URL
-        target: DB_URL
-      - source: DEV_PERF_TEST_DB_SCHEMA
-        target: DB_SCHEMA
-      - source: DEV_PERF_TEST_DB_USERNAME
-        target: DB_USERNAME
-      - source: DEV_PERF_TEST_DB_PASSWORD
-        target: DB_PASSWORD
-      - source: DEV_PERF_TEST_DB_ANON_ROLE
-        target: DB_ANON_ROLE
+      - source: DEV_PERF_TEST_REFDATA_URL
+        target: REFDATA_URL
+      - source: DEV_PERF_TEST_REFDATA_BASE_URL
+        target: REFDATA_BASE_URL
+      - source: DEV_PERF_TEST_REFDATA_USERNAME
+        target: REFDATA_USERNAME
+      - source: DEV_PERF_TEST_REFDATA_PASSWORD
+        target: REFDATA_PASSWORD
+      - source: DEV_PERF_TEST_REPORT_BASE_URL
+        target: REPORT_BASE_URL
     commands:
       - export IMAGE_TAG=${DRONE_COMMIT_SHA}
-    #- kd --insecure-skip-tls-verify -f kube/job.yml
+    #  - kd --insecure-skip-tls-verify -f kube/ref-data-small-dataset.yml
+    #  - kd --insecure-skip-tls-verify -f kube/ref-data-large-dataset.yml
     when:
-      branch: master
+    #  branch: master
       event: [ push, deployment ]
 
   notify:
