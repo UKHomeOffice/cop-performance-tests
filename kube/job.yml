@@ -1,0 +1,68 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ .NAME }}
+  namespace: {{ .KUBE_NAMESPACE }}
+spec:
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  concurrencyPolicy: Forbid
+  schedule: "0 8-16 * * 1-5"
+  jobTemplate:
+   spec:
+     backoffLimit: 0
+     template:
+      spec:
+        containers:
+          - name: {{.NAME }}
+            image: quay.io/ukhomeofficedigital/cop-performance-tests:latest
+            env:
+              - name: AUTH_CLIENT_ID
+                value: {{ .NAME }}
+              - name: AUTH_CLIENT_SECRET
+                value: {{.AUTH_CLIENT_SECRET}}
+              - name: S3_ACCESS_KEY
+                value: {{.S3_ACCESS_KEY}}
+              - name: S3_SECRET_KEY
+                value: {{.S3_SECRET_KEY}}
+              - name: S3_KMS_KEY_ID
+                value: {{.S3_KMS_KEY_ID}}
+              - name: S3_BUCKET_NAME
+                value: {{.S3_BUCKET_NAME}}
+              - name: POSTGREST_DOMAIN
+                value: "{{ .POSTGREST_NAME }}.{{ .EXT_DOMAIN }}"
+              - name: POSTGREST_PATH
+                value: "/rf_gender"
+              - name: KEYCLOCK_DOMAIN
+                value: {{ .KEYCLOAK_URL }}
+              - name: KEYCLOCK_PATH
+                value: "/realms/{{ .KEYCLOAK_REALM }}/protocol/openid-connect/token"
+              - name: TEST_SLACK_WEB_HOOK
+                value: {{.TEST_SLACK_WEB_HOOK}}
+              - name: DB_URL
+                value: {{.DB_URL}}
+              - name: DB_SCHEMA
+                value: {{.DB_SCHEMA}}
+              - name: DB_USERNAME
+                value: {{.DB_USERNAME}}
+              - name: DB_PASSWORD
+                value: {{.DB_PASSWORD}}
+              - name: DB_ANON_ROLE
+                value: {{.DB_ANON_ROLE}}
+            command:
+              - /bin/sh
+              - -c
+              - >
+                cd /bzt/scripts
+                && ./run-report.sh
+            securityContext:
+              runAsNonRoot: true
+              runAsUser: 1000
+            resources:
+                requests:
+                  memory: "2048Mi"
+                  cpu: "1000m"
+                limits:
+                  memory: "4096Mi"
+                  cpu: "2000m"
+        restartPolicy: Never
