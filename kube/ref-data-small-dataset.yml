@@ -2,7 +2,7 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: perf-ref-data-small-dataset
-  namespace: {{ .KUBE_NAMESPACE }}
+  namespace: {{.KUBE_NAMESPACE}}
 spec:
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
@@ -18,59 +18,35 @@ spec:
               image: quay.io/ukhomeofficedigital/cop-performance-tests:latest
               env:
                 - name: AUTH_CLIENT_ID
-                  value: {{ .AUTH_CLIENT_ID }}
+                  value: {{.AUTH_CLIENT_ID}}
                 - name: AUTH_CLIENT_SECRET
-                  valueFrom:
-                    secretKeyRef:
-                      name: {{ .NAME }}
-                      key: authClientSecret
+                  value: {{.AUTH_CLIENT_SECRET}}
                 - name: S3_ACCESS_KEY
-                  valueFrom:
-                    secretKeyRef:
-                      name: {{ .NAME }}
-                      key: s3AccessKey
+                  value: {{.S3_ACCESS_KEY}}
                 - name: S3_SECRET_KEY
-                  valueFrom:
-                    secretKeyRef:
-                      name: {{ .NAME }}
-                      key: s3SecretKey
+                  value: {{.S3_SECRET_KEY}}
                 - name: S3_KMS_KEY_ID
-                  valueFrom:
-                    secretKeyRef:
-                      name: {{ .NAME }}
-                      key: s3KmsKeyId
+                  value: {{.S3_KMS_KEY_ID}}
                 - name: S3_BUCKET_NAME
-                  valueFrom:
-                    secretKeyRef:
-                      name: {{ .NAME }}
-                      key: s3BucketName
+                  value: {{.S3_BUCKET_NAME}}
                 - name: REFDATA_URL
-                  value: {{ .REFDATA_URL }}
+                  value: {{.REFDATA_URL}}
                 - name: REFDATA_BASE_URL
-                  value: {{ .REFDATA_BASE_URL }}
+                  value: {{.REFDATA_BASE_URL}}
                 - name: REPORT_BASE_URL
-                  value: {{ .REPORT_BASE_URL }}
+                  value: {{.REPORT_BASE_URL}}
                 - name: KEYCLOAK_URL
-                  value: {{ .KEYCLOAK_URL }}
+                  value: {{.KEYCLOAK_URL}}
                 - name: KEYCLOAK_PATH
-                  value: "/auth/realms/{{ .KEYCLOAK_REALM }}/protocol/openid-connect/token"
+                  value: "/auth/realms/{{.KEYCLOAK_REALM}}/protocol/openid-connect/token"
                 - name: SLACK_WEB_HOOK
-                  valueFrom:
-                    secretKeyRef:
-                      name: {{ .NAME }}
-                      key: slackWebHook
+                  value: {{.SLACK_WEB_HOOK}}
                 - name: REFDATA_USERNAME
-                  valueFrom:
-                    secretKeyRef:
-                      name: {{ .NAME }}
-                      key: refDataUserName
+                  value: {{.REFDATA_USERNAME}}
                 - name: REFDATA_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: {{ .NAME }}
-                      key: refDataPassword
+                  value: {{.REFDATA_PASSWORD}}
                 - name: KUBE_NAMESPACE
-                  value: {{ .KUBE_NAMESPACE }}
+                  value: {{.KUBE_NAMESPACE}}
               command:
                 - /bin/sh
                 - -c
@@ -88,4 +64,3 @@ spec:
                   memory: "4096Mi"
                   cpu: "2000m"
           restartPolicy: Never
-
