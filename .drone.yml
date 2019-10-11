@@ -55,7 +55,7 @@ pipeline:
         target: KEYCLOAK_REALM
       - source: DEV_PERF_TEST_POSTGREST_NAME
         target: POSTGREST_NAME
-      - source: DEV_PERF_TEST_SLACK_WEB_HOOK
+      - source: DEV_PERF_TEST_SLACK_WEBHOOK
         target: SLACK_WEB_HOOK
       - source: DEV_PERF_TEST_S3_KMS_KEY_ID
         target: S3_KMS_KEY_ID
@@ -81,8 +81,8 @@ pipeline:
         target: REPORT_BASE_URL
     commands:
       - export IMAGE_TAG=${DRONE_COMMIT_SHA}
-    #  - kd --insecure-skip-tls-verify -f kube/ref-data-small-dataset.yml
-    #  - kd --insecure-skip-tls-verify -f kube/ref-data-large-dataset.yml
+      - kd --insecure-skip-tls-verify -f kube/ref-data-small-dataset.yml
+      - kd --insecure-skip-tls-verify -f kube/ref-data-large-dataset.yml
     when:
     #  branch: master
       event: [ push, deployment ]
