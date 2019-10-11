@@ -38,7 +38,7 @@ spec:
                 - name: KEYCLOAK_URL
                   value: {{.KEYCLOAK_URL}}
                 - name: KEYCLOAK_PATH
-                  value: "/auth/realms/{{.KEYCLOAK_REALM}}/protocol/openid-connect/token"
+                  value: "/realms/{{.KEYCLOAK_REALM}}/protocol/openid-connect/token"
                 - name: SLACK_WEB_HOOK
                   value: {{.SLACK_WEB_HOOK}}
                 - name: REFDATA_USERNAME
