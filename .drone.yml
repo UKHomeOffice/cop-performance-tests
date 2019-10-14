@@ -3,6 +3,7 @@ pipeline:
     image: quay.io/ukhomeofficedigital/cop-secrets
     environment:
       - DRONE_SERVER=https://drone.acp.homeoffice.gov.uk
+      - DEPLOY_ENV=dev
     secrets:
       - source: DEV_DRONE_AWS_ACCESS_KEY_ID
         target: AWS_ACCESS_KEY_ID
@@ -43,7 +44,7 @@ pipeline:
     secrets:
       - source: DEV_PERF_TEST_NAME
         target: NAME
-      - source: DEV_PERF_TEST_KUBE_NAMESPACE
+      - source: DEV_KUBE_NAMESPACE_PRIVATE_COP
         target: KUBE_NAMESPACE
       - source: DEV_KUBE_SERVER
         target: KUBE_SERVER
