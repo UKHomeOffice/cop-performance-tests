@@ -12,7 +12,8 @@ pipeline:
       - source: DRONE_PUBLIC_TOKEN
         target: DRONE_TOKEN
     when:
-       event: push
+      environment: secrets
+      event: deployment
 
   build:
     image: quay.io/ukhomeofficedigital/drone-docker
@@ -70,16 +71,16 @@ pipeline:
         target: AUTH_CLIENT_ID
       - source: DEV_PERF_TEST_AUTH_CLIENT_SECRET
         target: AUTH_CLIENT_SECRET
-      - source: DEV_PERF_TEST_REFDATA_URL
+      - source: DEV_API_REF_URL
         target: REFDATA_URL
-      - source: DEV_PERF_TEST_REFDATA_BASE_URL
-        target: REFDATA_BASE_URL
       - source: DEV_PERF_TEST_REFDATA_USERNAME
         target: REFDATA_USERNAME
       - source: DEV_PERF_TEST_REFDATA_PASSWORD
         target: REFDATA_PASSWORD
       - source: DEV_PERF_TEST_REPORT_BASE_URL
         target: REPORT_BASE_URL
+      - source: DEV_WWW_REF_URL
+        target: REFDATA_BASE_URL
     commands:
       - export IMAGE_TAG=${DRONE_COMMIT_SHA}
       - kd --insecure-skip-tls-verify -f kube/ref-data-small-dataset.yml
