@@ -17,14 +17,10 @@ pipeline:
 
   build:
     image: quay.io/ukhomeofficedigital/drone-docker
-    secrets:
-      - source: DEV_PERF_TEST_NAME
-        target: NAME
     commands:
-      - docker build -t $${NAME}:$${DRONE_COMMIT_SHA} .
+      - docker build -t performance-tests:$${DRONE_COMMIT_SHA} .
     when:
-      event:
-        - push
+      event: push
 
   vulnerability-scan:
     image: quay.io/ukhomeofficedigital/anchore-submission:latest
@@ -34,6 +30,7 @@ pipeline:
     tolerate: low
     fail_on_detection: false
     when:
+      branch: master
       event: push
 
   image_to_quay:
